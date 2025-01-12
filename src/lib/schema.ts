@@ -318,5 +318,6 @@ export interface CursorRoles {
   monitoring?: Monitoring[];
   caching?: Caching[];
   performance?: Performance[];
+  additionalRules?: string[];
   customRules?: Record<string, unknown>;
 }

@@ -9,6 +9,121 @@ type Step = {
   title: string;
 };
 
+const additionalRules = [
+  {
+    id: "git_workflow",
+    title: "Git Workflow",
+    rules: [
+      "- Use feature branches for all new features and bug fixes",
+      "- Use semantic commit messages",
+      "- Protect the main branch with code reviews",
+      "- Delete local and remote feature branches after merging",
+      "- Keep branches up to date with main",
+      "- Use git rebase for cleaner history",
+      "- Write meaningful commit messages",
+      "- Use git hooks for code quality",
+      "- Regular backups of repositories",
+      "- Use git tags for releases",
+    ],
+  },
+  {
+    id: "code_quality",
+    title: "Code Quality",
+    rules: [
+      "- Follow clean code principles",
+      "- Use consistent code formatting",
+      "- Write self-documenting code",
+      "- Keep functions small and focused",
+      "- Use meaningful variable names",
+      "- Avoid code duplication",
+      "- Write unit tests for new code",
+      "- Regular code reviews",
+      "- Use static code analysis",
+      "- Regular refactoring sessions",
+    ],
+  },
+  {
+    id: "documentation",
+    title: "Documentation",
+    rules: [
+      "- Keep README up to date",
+      "- Document all APIs",
+      "- Include setup instructions",
+      "- Document environment variables",
+      "- Add inline code comments",
+      "- Create architecture diagrams",
+      "- Document deployment process",
+      "- Maintain changelog",
+      "- Document testing strategy",
+      "- Keep documentation versioned",
+    ],
+  },
+  {
+    id: "security",
+    title: "Security Practices",
+    rules: [
+      "- Regular security audits",
+      "- Secure credential management",
+      "- Regular dependency updates",
+      "- Security testing in CI/CD",
+      "- Code security scanning",
+      "- Access control reviews",
+      "- Security incident response plan",
+      "- Regular penetration testing",
+      "- Security training for team",
+      "- Vulnerability management",
+    ],
+  },
+  {
+    id: "team_collaboration",
+    title: "Team Collaboration",
+    rules: [
+      "- Regular team meetings",
+      "- Clear communication channels",
+      "- Knowledge sharing sessions",
+      "- Pair programming sessions",
+      "- Code review guidelines",
+      "- Team coding standards",
+      "- Regular retrospectives",
+      "- Cross-training sessions",
+      "- Documentation reviews",
+      "- Team skill development",
+    ],
+  },
+  {
+    id: "project_management",
+    title: "Project Management",
+    rules: [
+      "- Clear project roadmap",
+      "- Regular status updates",
+      "- Risk management plan",
+      "- Resource allocation",
+      "- Timeline tracking",
+      "- Budget monitoring",
+      "- Stakeholder communication",
+      "- Quality assurance process",
+      "- Change management process",
+      "- Project documentation",
+    ],
+  },
+  {
+    id: "devops",
+    title: "DevOps Practices",
+    rules: [
+      "- Automated deployments",
+      "- Infrastructure as code",
+      "- Monitoring and alerting",
+      "- Log management",
+      "- Backup and recovery",
+      "- Environment parity",
+      "- Configuration management",
+      "- Continuous integration",
+      "- Continuous deployment",
+      "- Incident management",
+    ],
+  },
+];
+
 const steps: Step[] = [
   { id: "devLanguage", title: "Development Language" },
   { id: "framework", title: "Framework" },
@@ -26,6 +141,7 @@ const steps: Step[] = [
   { id: "monitoring", title: "Monitoring" },
   { id: "caching", title: "Caching" },
   { id: "performance", title: "Performance" },
+  { id: "additionalRules", title: "Additional Rules" },
 ];
 
 // Update FormDataType to match CursorRoles interface
@@ -386,6 +502,8 @@ export default function Home() {
         return getArrayCopy(rulesSchema.logging);
       case "ci_cd":
         return getArrayCopy(rulesSchema.ci_cd);
+      case "additionalRules":
+        return additionalRules.map((rule) => rule.title);
       default:
         return [];
     }
@@ -394,6 +512,24 @@ export default function Home() {
   const handleSelect = (stepId: string, value: string) => {
     setFormData((prev) => {
       const currentValue = prev[stepId as keyof typeof prev];
+
+      // For additional rules step, handle multiple selections
+      if (stepId === "additionalRules") {
+        const currentRules = (currentValue as string[]) || [];
+        if (currentRules.includes(value)) {
+          // Remove the value if it's already selected
+          return {
+            ...prev,
+            [stepId]: currentRules.filter((rule) => rule !== value),
+          };
+        } else {
+          // Add the new value
+          return {
+            ...prev,
+            [stepId]: [...currentRules, value],
+          };
+        }
+      }
 
       // For single-select options
       if (currentValue === value) {
@@ -419,7 +555,8 @@ export default function Home() {
     // Only auto-advance if:
     // 1. We're adding a new value (not toggling off)
     // 2. The current step matches the stepId being modified
-    if (currentStep.id === stepId) {
+    // 3. It's not the additional rules step
+    if (currentStep.id === stepId && stepId !== "additionalRules") {
       const currentValue = formData[stepId as keyof typeof formData];
       const isToggleOff = currentValue === value;
 
@@ -531,6 +668,8 @@ ${getPerformanceGuidelines(data)}
 ${getDeploymentGuidelines(data)}
 
 ${getLoggingGuidelines(data)}
+
+${data.additionalRules ? getSelectedAdditionalRules(data.additionalRules as string[]) : ""}
 
 ### Error Handling Standards
 - Implement comprehensive error boundaries
@@ -652,6 +791,17 @@ ${getLoggingGuidelines(data)}
     }
   };
 
+  const getSelectedAdditionalRules = (selectedRules: string[]) => {
+    let rulesContent = "";
+    selectedRules.forEach((ruleTitle) => {
+      const rule = additionalRules.find((r) => r.title === ruleTitle);
+      if (rule) {
+        rulesContent += `\n### ${rule.title}\n${rule.rules.join("\n")}\n`;
+      }
+    });
+    return rulesContent;
+  };
+
   return (
     <main className="min-h-screen p-6">
       <motion.h1
@@ -713,9 +863,9 @@ ${getLoggingGuidelines(data)}
         </motion.div>
       </div>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col md:flex-row gap-6">
         {/* Left side - Current Questions */}
-        <div className="md:w-1/2 w-full">
+        <div className="w-full md:w-1/2">
           {/* Steps Navigation */}
           <motion.div className="mb-6 flex items-center gap-1.5 relative flex-wrap" layout>
             {steps.map((step, index) => {
@@ -793,7 +943,7 @@ ${getLoggingGuidelines(data)}
               exit={{ opacity: 0, x: -20 }}
               className="space-y-6"
             >
-              {steps.slice(currentStepIndex, currentStepIndex + 2).map((step) => (
+              {steps.slice(currentStepIndex, currentStepIndex + 1).map((step) => (
                 <section key={step.id} className="space-y-3">
                   <div className="space-y-2">
                     <h2 className="text-lg font-semibold flex items-center gap-2">{step.title}</h2>
@@ -936,7 +1086,7 @@ ${getLoggingGuidelines(data)}
         </div>
 
         {/* Right side - Preview */}
-        <motion.div className="md:w-1/2 w-full" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+        <motion.div className="w-full md:w-1/2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
           <div className="sticky top-6">
             <h2 className="text-lg font-semibold mb-3">Preview</h2>
             <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-auto max-h-[calc(100vh-150px)] text-sm transition-all">
