@@ -75,6 +75,54 @@ const additionalRules = [
     ],
   },
   {
+    id: "monitoring",
+    title: "Monitoring & Observability",
+    rules: [
+      "- Implement comprehensive application monitoring",
+      "- Set up real-time alerting system",
+      "- Monitor system resources and performance",
+      "- Track user behavior and analytics",
+      "- Implement distributed tracing",
+      "- Set up error tracking and reporting",
+      "- Create monitoring dashboards",
+      "- Configure log aggregation",
+      "- Monitor service dependencies",
+      "- Regular monitoring review and optimization",
+    ],
+  },
+  {
+    id: "caching",
+    title: "Caching Strategy",
+    rules: [
+      "- Implement multi-layer caching strategy",
+      "- Use appropriate cache invalidation methods",
+      "- Configure browser caching properly",
+      "- Implement API response caching",
+      "- Set up CDN caching",
+      "- Use memory caching for frequent data",
+      "- Implement database query caching",
+      "- Monitor cache hit rates",
+      "- Handle cache failures gracefully",
+      "- Regular cache maintenance",
+    ],
+  },
+  {
+    id: "performance",
+    title: "Performance Optimization",
+    rules: [
+      "- Implement code splitting and lazy loading",
+      "- Optimize asset delivery and compression",
+      "- Use efficient data structures and algorithms",
+      "- Implement proper database indexing",
+      "- Optimize API response times",
+      "- Monitor and optimize memory usage",
+      "- Implement proper error boundaries",
+      "- Regular performance testing",
+      "- Use performance monitoring tools",
+      "- Optimize build and bundling process",
+    ],
+  },
+  {
     id: "team_collaboration",
     title: "Team Collaboration",
     rules: [
@@ -138,9 +186,6 @@ const steps: Step[] = [
   { id: "deployment", title: "Deployment" },
   { id: "ci_cd", title: "CI/CD" },
   { id: "logging", title: "Logging" },
-  { id: "monitoring", title: "Monitoring" },
-  { id: "caching", title: "Caching" },
-  { id: "performance", title: "Performance" },
   { id: "additionalRules", title: "Additional Rules" },
 ];
 
@@ -411,51 +456,6 @@ const getSecurityGuidelines = (data: Partial<CursorRoles>) => {
   - Use security scanning tools`;
 };
 
-const getMonitoringGuidelines = (data: Partial<CursorRoles>) => {
-  if (!data.monitoring) return "";
-  return `### Monitoring Guidelines
-  - Implement proper application monitoring
-  - Use proper metrics collection
-  - Set up proper alerting
-  - Monitor system resources
-  - Track user behavior
-  - Monitor performance metrics
-  - Set up proper dashboards
-  - Implement proper logging
-  - Use proper tracing
-  - Regular monitoring reviews`;
-};
-
-const getCachingGuidelines = (data: Partial<CursorRoles>) => {
-  if (!data.caching) return "";
-  return `### Caching Guidelines
-  - Implement proper caching strategy
-  - Use appropriate cache invalidation
-  - Implement proper cache layers
-  - Monitor cache performance
-  - Handle cache failures
-  - Use proper cache keys
-  - Implement proper TTL
-  - Handle cache consistency
-  - Use proper cache storage
-  - Regular cache maintenance`;
-};
-
-const getPerformanceGuidelines = (data: Partial<CursorRoles>) => {
-  if (!data.performance) return "";
-  return `### Performance Guidelines
-  - Implement proper code splitting
-  - Use proper lazy loading
-  - Optimize bundle size
-  - Implement proper caching
-  - Optimize images and assets
-  - Use proper compression
-  - Monitor performance metrics
-  - Regular performance audits
-  - Use proper CDN
-  - Implement proper SSR/SSG`;
-};
-
 export default function Home() {
   const [formData, setFormData] = useState<FormDataType>({
     devLanguage: "" as DevLanguage,
@@ -500,6 +500,7 @@ export default function Home() {
           : [];
       case "logging":
         return getArrayCopy(rulesSchema.logging);
+
       case "ci_cd":
         return getArrayCopy(rulesSchema.ci_cd);
       case "additionalRules":
@@ -576,14 +577,6 @@ export default function Home() {
     handleNext();
   };
 
-  const handleRemoveSelection = (stepId: string) => {
-    setFormData((prev) => {
-      const newData = { ...prev };
-      delete newData[stepId as keyof typeof newData];
-      return newData;
-    });
-  };
-
   const validateForm = (data: Partial<CursorRoles>): string[] => {
     const errors: string[] = [];
     if (!data.devLanguage) errors.push("Development Language is required");
@@ -618,6 +611,13 @@ export default function Home() {
       return;
     }
 
+    // Helper function to safely join array values
+    const safeJoin = (value: string | string[] | undefined): string => {
+      if (!value) return "";
+      if (Array.isArray(value)) return value.join(", ");
+      return String(value);
+    };
+
     const content = `# Cursor Development Guidelines
 ## Project Configuration
 Language: ${data.devLanguage}${data.framework ? ` with ${data.framework}` : ""}
@@ -632,14 +632,12 @@ This file contains development guidelines and best practices for ${data.platform
 ## Technology Stack
 - Language: ${data.devLanguage}
 ${data.framework ? `- Framework: ${data.framework}\n` : ""}${data.platform ? `- Platform: ${data.platform}\n` : ""}${
-      data.styling ? `- UI Framework: ${data.styling}\n` : ""
-    }${data.database ? `- Database: ${data.database}\n` : ""}${
-      data.backendPlatform ? `- Backend Platform: ${data.backendPlatform}\n` : ""
-    }${data.auth ? `- Authentication: ${data.auth}\n` : ""}${
-      data.security ? `- Security: ${data.security.join(", ")}\n` : ""
-    }${data.monitoring ? `- Monitoring: ${data.monitoring.join(", ")}\n` : ""}${
-      data.caching ? `- Caching: ${data.caching.join(", ")}\n` : ""
-    }${data.performance ? `- Performance: ${data.performance.join(", ")}\n` : ""}
+      data.styling ? `- UI Framework: ${safeJoin(data.styling)}\n` : ""
+    }${data.database ? `- Database: ${safeJoin(data.database)}\n` : ""}${
+      data.backendPlatform ? `- Backend Platform: ${safeJoin(data.backendPlatform)}\n` : ""
+    }${data.auth ? `- Authentication: ${safeJoin(data.auth)}\n` : ""}${
+      data.security ? `- Security: ${safeJoin(data.security)}\n` : ""
+    }
 
 ## Development Standards
 
@@ -658,12 +656,6 @@ ${getTestingGuidelines(data)}
 ${getAuthGuidelines(data)}
 
 ${getSecurityGuidelines(data)}
-
-${getMonitoringGuidelines(data)}
-
-${getCachingGuidelines(data)}
-
-${getPerformanceGuidelines(data)}
 
 ${getDeploymentGuidelines(data)}
 
@@ -947,34 +939,6 @@ ${data.additionalRules ? getSelectedAdditionalRules(data.additionalRules as stri
                 <section key={step.id} className="space-y-3">
                   <div className="space-y-2">
                     <h2 className="text-lg font-semibold flex items-center gap-2">{step.title}</h2>
-                    {/* Show selected values for this step */}
-                    {formData[step.id as keyof typeof formData] && (
-                      <div className="flex flex-wrap gap-1.5">
-                        {Array.isArray(formData[step.id as keyof typeof formData]) ? (
-                          (formData[step.id as keyof typeof formData] as string[]).map((value) => (
-                            <div
-                              key={`${step.id}-${value}`}
-                              className="bg-blue-500 text-white px-2 py-0.5 text-xs rounded-full flex items-center gap-1.5"
-                            >
-                              {value}
-                              <button onClick={() => handleRemoveSelection(step.id)} className="hover:text-blue-200">
-                                ×
-                              </button>
-                            </div>
-                          ))
-                        ) : (
-                          <div
-                            key={`${step.id}-${formData[step.id as keyof typeof formData]}`}
-                            className="bg-blue-500 text-white px-2 py-0.5 text-xs rounded-full flex items-center gap-1.5"
-                          >
-                            {String(formData[step.id as keyof typeof formData])}
-                            <button onClick={() => handleRemoveSelection(step.id)} className="hover:text-blue-200">
-                              ×
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    )}
                   </div>
 
                   {Array.isArray(getOptionsForStep(step.id)) ? (

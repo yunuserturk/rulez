@@ -315,9 +315,6 @@ export interface CursorRoles {
   logging?: Logging[];
   auth?: Auth[];
   security?: Security[];
-  monitoring?: Monitoring[];
-  caching?: Caching[];
-  performance?: Performance[];
   additionalRules?: string[];
   customRules?: Record<string, unknown>;
 }
