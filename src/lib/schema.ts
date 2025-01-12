@@ -223,64 +223,6 @@ export const rulesSchema = {
     "SAML",
     "OpenID Connect",
   ],
-  security: [
-    "HTTPS/TLS",
-    "CSP",
-    "CORS",
-    "XSS Protection",
-    "CSRF Protection",
-    "Rate Limiting",
-    "Input Validation",
-    "SQL Injection Prevention",
-    "Authentication",
-    "Authorization",
-    "Encryption",
-    "Helmet.js",
-    "Security Headers",
-    "WAF",
-    "Penetration Testing",
-  ],
-  monitoring: [
-    "Prometheus",
-    "Grafana",
-    "New Relic",
-    "Datadog",
-    "Sentry",
-    "AppDynamics",
-    "Dynatrace",
-    "Elastic APM",
-    "Instana",
-    "Lightstep",
-    "SignalFx",
-    "Honeycomb",
-    "PagerDuty",
-    "OpsGenie",
-    "Pingdom",
-  ],
-  caching: [
-    "Redis",
-    "Memcached",
-    "Varnish",
-    "CDN",
-    "Browser Caching",
-    "In-Memory Cache",
-    "Distributed Cache",
-    "Cache Invalidation",
-    "HTTP Caching",
-    "Service Worker Cache",
-  ],
-  performance: [
-    "Code Splitting",
-    "Lazy Loading",
-    "Tree Shaking",
-    "Minification",
-    "Compression",
-    "Image Optimization",
-    "Bundle Analysis",
-    "Server-Side Rendering",
-    "Static Site Generation",
-    "Progressive Web App",
-  ],
 };
 
 // Export types for all categories
@@ -296,10 +238,6 @@ export type Deployment = (typeof rulesSchema.deployment)[number];
 export type CICD = (typeof rulesSchema.ci_cd)[number];
 export type Logging = (typeof rulesSchema.logging)[number];
 export type Auth = (typeof rulesSchema.auth)[number];
-export type Security = (typeof rulesSchema.security)[number];
-export type Monitoring = (typeof rulesSchema.monitoring)[number];
-export type Caching = (typeof rulesSchema.caching)[number];
-export type Performance = (typeof rulesSchema.performance)[number];
 
 export interface CursorRoles {
   devLanguage: DevLanguage;
@@ -314,7 +252,6 @@ export interface CursorRoles {
   ci_cd?: CICD[];
   logging?: Logging[];
   auth?: Auth[];
-  security?: Security[];
   additionalRules?: string[];
   customRules?: Record<string, unknown>;
 }

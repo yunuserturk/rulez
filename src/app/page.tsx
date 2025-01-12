@@ -441,20 +441,6 @@ const getLoggingGuidelines = (data: Partial<CursorRoles>) => {
   - Implement proper retention policies`;
 };
 
-const getSecurityGuidelines = (data: Partial<CursorRoles>) => {
-  if (!data.security) return "";
-  return `### Security Guidelines
-  - Implement proper security headers and CSP
-  - Use secure authentication methods
-  - Implement proper authorization
-  - Follow OWASP security guidelines
-  - Use proper input validation
-  - Implement rate limiting
-  - Use proper encryption methods
-  - Regular security audits
-  - Implement proper error handling
-  - Use security scanning tools`;
-};
 
 export default function Home() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -602,7 +588,7 @@ export default function Home() {
     setErrors(errors);
 
     if (errors.length > 0) {
-      setPreview("Please fix the following errors:\n" + errors.join("\n"));
+      setPreview("Select options to generate Cursor roles...");
       return;
     }
 
@@ -655,7 +641,6 @@ ${getTestingGuidelines(data)}
 
 ${getAuthGuidelines(data)}
 
-${getSecurityGuidelines(data)}
 
 ${getDeploymentGuidelines(data)}
 
@@ -1052,7 +1037,6 @@ ${data.additionalRules ? getSelectedAdditionalRules(data.additionalRules as stri
         {/* Right side - Preview */}
         <motion.div className="w-full md:w-1/2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
           <div className="sticky top-6">
-            <h2 className="text-lg font-semibold mb-3">Preview</h2>
             <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-auto max-h-[calc(100vh-150px)] text-sm transition-all">
               <code>{preview}</code>
             </pre>
