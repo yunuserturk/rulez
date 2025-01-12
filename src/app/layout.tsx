@@ -24,11 +24,11 @@ export const metadata: Metadata = {
     title: "CursorRules - AI-Powered Development Rules Generator",
     description:
       "Transform your development workflow with intelligent rule management. Create, validate, and deploy AI decision logic seamlessly.",
-    url: "https://cursorrules.dev",
+    url: "https://rulez.vercel.app",
     siteName: "CursorRules",
     images: [
       {
-        url: "https://cursorrules.dev/og.png",
+        url: "https://rulez.vercel.app/og.png",
         width: 1200,
         height: 630,
         alt: "CursorRules - AI Development Guidelines Generator",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description:
       "Transform your development workflow with intelligent rule management. Create, validate, and deploy AI decision logic seamlessly.",
     creator: "@yunusserturk",
-    images: ["https://cursorrules.dev/og.png"],
+    images: ["https://rulez.vercel.app/og.png"],
   },
   robots: {
     index: true,
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     google: "your-google-site-verification",
   },
   alternates: {
-    canonical: "https://cursorrules.dev",
+    canonical: "https://rulez.vercel.app",
   },
 };
 
