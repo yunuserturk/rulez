@@ -783,9 +783,9 @@ ${data.additionalRules ? getSelectedAdditionalRules(data.additionalRules as stri
       <motion.h1
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="text-2xl font-bold mb-6 text-center"
+        className="text-2xl font-bold text-center"
       >
-        CursorRules - AI-Powered Development Guidelines
+        CursorRules Generator 
       </motion.h1>
 
       <motion.p
@@ -793,8 +793,7 @@ ${data.additionalRules ? getSelectedAdditionalRules(data.additionalRules as stri
         animate={{ opacity: 1 }}
         className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
       >
-        Transform your development workflow with intelligent rule management. Create consistent coding standards and AI
-        development practices for your team with our powerful rules engine.
+        Transform your productivity with instruction driven development. 
       </motion.p>
 
       {/* Selected Options Pills */}
