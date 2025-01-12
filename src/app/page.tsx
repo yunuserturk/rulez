@@ -12,16 +12,20 @@ type Step = {
 const steps: Step[] = [
   { id: "devLanguage", title: "Development Language" },
   { id: "framework", title: "Framework" },
-  { id: "stateManagement", title: "State Management" },
   { id: "platform", title: "Platform" },
   { id: "styling", title: "UI Framework" },
+  { id: "stateManagement", title: "State Management" },
   { id: "database", title: "Database" },
+  { id: "backendPlatform", title: "Backend Platform" },
+  { id: "auth", title: "Authentication" },
+  { id: "security", title: "Security" },
   { id: "testing", title: "Testing" },
   { id: "deployment", title: "Deployment" },
-  { id: "auth", title: "Authentication" },
-  { id: "backendPlatform", title: "Backend Platform" },
-  { id: "logging", title: "Logging" },
   { id: "ci_cd", title: "CI/CD" },
+  { id: "logging", title: "Logging" },
+  { id: "monitoring", title: "Monitoring" },
+  { id: "caching", title: "Caching" },
+  { id: "performance", title: "Performance" },
 ];
 
 // Update FormDataType to match CursorRoles interface
@@ -276,25 +280,64 @@ const getLoggingGuidelines = (data: Partial<CursorRoles>) => {
   - Implement proper retention policies`;
 };
 
+const getSecurityGuidelines = (data: Partial<CursorRoles>) => {
+  if (!data.security) return "";
+  return `### Security Guidelines
+  - Implement proper security headers and CSP
+  - Use secure authentication methods
+  - Implement proper authorization
+  - Follow OWASP security guidelines
+  - Use proper input validation
+  - Implement rate limiting
+  - Use proper encryption methods
+  - Regular security audits
+  - Implement proper error handling
+  - Use security scanning tools`;
+};
+
+const getMonitoringGuidelines = (data: Partial<CursorRoles>) => {
+  if (!data.monitoring) return "";
+  return `### Monitoring Guidelines
+  - Implement proper application monitoring
+  - Use proper metrics collection
+  - Set up proper alerting
+  - Monitor system resources
+  - Track user behavior
+  - Monitor performance metrics
+  - Set up proper dashboards
+  - Implement proper logging
+  - Use proper tracing
+  - Regular monitoring reviews`;
+};
+
+const getCachingGuidelines = (data: Partial<CursorRoles>) => {
+  if (!data.caching) return "";
+  return `### Caching Guidelines
+  - Implement proper caching strategy
+  - Use appropriate cache invalidation
+  - Implement proper cache layers
+  - Monitor cache performance
+  - Handle cache failures
+  - Use proper cache keys
+  - Implement proper TTL
+  - Handle cache consistency
+  - Use proper cache storage
+  - Regular cache maintenance`;
+};
+
 const getPerformanceGuidelines = (data: Partial<CursorRoles>) => {
-  if (!data.platform) return "";
-  let guidelines = "### Performance Guidelines\n";
-  if (data.platform === "Web") {
-    guidelines += `
-  - Optimize First Contentful Paint
+  if (!data.performance) return "";
+  return `### Performance Guidelines
   - Implement proper code splitting
-  - Optimize asset loading
-  - Use proper caching strategies
-  - Monitor Core Web Vitals`;
-  } else if (data.platform === "Mobile") {
-    guidelines += `
-  - Optimize app size and load time
-  - Implement proper memory management
-  - Handle offline scenarios
-  - Optimize battery usage
-  - Monitor app performance metrics`;
-  }
-  return guidelines;
+  - Use proper lazy loading
+  - Optimize bundle size
+  - Implement proper caching
+  - Optimize images and assets
+  - Use proper compression
+  - Monitor performance metrics
+  - Regular performance audits
+  - Use proper CDN
+  - Implement proper SSR/SSG`;
 };
 
 export default function Home() {
@@ -455,7 +498,11 @@ ${data.framework ? `- Framework: ${data.framework}\n` : ""}${data.platform ? `- 
       data.styling ? `- UI Framework: ${data.styling}\n` : ""
     }${data.database ? `- Database: ${data.database}\n` : ""}${
       data.backendPlatform ? `- Backend Platform: ${data.backendPlatform}\n` : ""
-    }${data.auth ? `- Authentication: ${data.auth}\n` : ""}
+    }${data.auth ? `- Authentication: ${data.auth}\n` : ""}${
+      data.security ? `- Security: ${data.security.join(", ")}\n` : ""
+    }${data.monitoring ? `- Monitoring: ${data.monitoring.join(", ")}\n` : ""}${
+      data.caching ? `- Caching: ${data.caching.join(", ")}\n` : ""
+    }${data.performance ? `- Performance: ${data.performance.join(", ")}\n` : ""}
 
 ## Development Standards
 
@@ -473,11 +520,17 @@ ${getTestingGuidelines(data)}
 
 ${getAuthGuidelines(data)}
 
+${getSecurityGuidelines(data)}
+
+${getMonitoringGuidelines(data)}
+
+${getCachingGuidelines(data)}
+
+${getPerformanceGuidelines(data)}
+
 ${getDeploymentGuidelines(data)}
 
 ${getLoggingGuidelines(data)}
-
-${getPerformanceGuidelines(data)}
 
 ### Error Handling Standards
 - Implement comprehensive error boundaries
