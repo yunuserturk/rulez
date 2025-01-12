@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/favicon.svg",
+        url: "https://rulez.vercel.app/favicon.svg",
         type: "image/svg+xml",
       },
     ],
