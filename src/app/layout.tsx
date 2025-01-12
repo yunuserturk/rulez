@@ -5,15 +5,70 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cursor Roles Generator",
-  description: "Generate .cursorroles files for your development projects",
+  title: "CursorRules - AI-Powered Development Rules Generator",
+  description:
+    "Create intelligent development guidelines and AI rules for your projects. CursorRules helps teams establish consistent coding standards, AI development practices, and automated workflows.",
+  keywords: [
+    "cursorrules",
+    "ai development rules",
+    "development guidelines",
+    "coding standards",
+    "ai workflows",
+    "development best practices",
+    "code quality",
+    "team collaboration",
+    "project management",
+    "development automation",
+  ],
+  openGraph: {
+    title: "CursorRules - AI-Powered Development Rules Generator",
+    description:
+      "Transform your development workflow with intelligent rule management. Create, validate, and deploy AI decision logic seamlessly.",
+    url: "https://cursorrules.dev",
+    siteName: "CursorRules",
+    images: [
+      {
+        url: "https://cursorrules.dev/og.png",
+        width: 1200,
+        height: 630,
+        alt: "CursorRules - AI Development Guidelines Generator",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CursorRules - AI-Powered Development Rules Generator",
+    description:
+      "Transform your development workflow with intelligent rule management. Create, validate, and deploy AI decision logic seamlessly.",
+    creator: "@yunusserturk",
+    images: ["https://cursorrules.dev/og.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       {
-        url: "https://rulez.vercel.app/favicon.svg",
+        url: "/favicon.svg",
         type: "image/svg+xml",
       },
     ],
+  },
+  verification: {
+    google: "your-google-site-verification",
+  },
+  alternates: {
+    canonical: "https://cursorrules.dev",
   },
 };
 

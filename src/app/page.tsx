@@ -441,7 +441,6 @@ const getLoggingGuidelines = (data: Partial<CursorRoles>) => {
   - Implement proper retention policies`;
 };
 
-
 export default function Home() {
   const [formData, setFormData] = useState<FormDataType>({
     devLanguage: "" as DevLanguage,
@@ -786,8 +785,17 @@ ${data.additionalRules ? getSelectedAdditionalRules(data.additionalRules as stri
         animate={{ y: 0, opacity: 1 }}
         className="text-2xl font-bold mb-6 text-center"
       >
-        Cursor Roles Generator
+        CursorRules - AI-Powered Development Guidelines
       </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
+      >
+        Transform your development workflow with intelligent rule management. Create consistent coding standards and AI
+        development practices for your team with our powerful rules engine.
+      </motion.p>
 
       {/* Selected Options Pills */}
       <div className="mb-6">
