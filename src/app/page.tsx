@@ -715,7 +715,7 @@ ${getLoggingGuidelines(data)}
 
       <div className="flex gap-6">
         {/* Left side - Current Questions */}
-        <div className="w-1/2">
+        <div className="md:w-1/2 w-full">
           {/* Steps Navigation */}
           <motion.div className="mb-6 flex items-center gap-1.5 relative flex-wrap" layout>
             {steps.map((step, index) => {
@@ -936,7 +936,7 @@ ${getLoggingGuidelines(data)}
         </div>
 
         {/* Right side - Preview */}
-        <motion.div className="w-1/2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+        <motion.div className="md:w-1/2 w-full" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
           <div className="sticky top-6">
             <h2 className="text-lg font-semibold mb-3">Preview</h2>
             <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-auto max-h-[calc(100vh-150px)] text-sm transition-all">
