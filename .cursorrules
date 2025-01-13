@@ -1,0 +1,54 @@
+{
+  "project": {
+    "name": "rulez",
+    "type": "next.js",
+    "version": "0.1.0"
+  },
+  "rules": {
+    "typescript": {
+      "strict": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "useUnknownInCatchVariables": true,
+      "noUncheckedIndexedAccess": true
+    },
+    "react": {
+      "preferFunctionComponents": true,
+      "useTypedProps": true,
+      "avoidPropDrilling": true,
+      "componentNaming": "PascalCase",
+      "hookNaming": "camelCase",
+      "maxPropsPerLine": 3
+    },
+    "nextjs": {
+      "useAppRouter": true,
+      "preferServerComponents": true,
+      "useTypedRoutes": true,
+      "optimizeImages": true,
+      "useMetadata": true
+    },
+    "styling": {
+      "framework": "tailwind",
+      "preferComposition": true,
+      "useCustomVariants": true,
+      "maintainConsistency": true
+    },
+    "testing": {
+      "framework": "jest",
+      "requireTests": true,
+      "coverageThreshold": 80,
+      "enforceDescriptiveNames": true
+    },
+    "documentation": {
+      "requireJSDoc": true,
+      "enforceDescriptiveComments": true,
+      "requireChangelogUpdates": true
+    },
+    "security": {
+      "preventXSS": true,
+      "validateInputs": true,
+      "sanitizeOutputs": true,
+      "useCSRF": true
+    }
+  }
+}
