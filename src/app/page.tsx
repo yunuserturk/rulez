@@ -785,7 +785,7 @@ ${data.additionalRules ? getSelectedAdditionalRules(data.additionalRules as stri
         animate={{ y: 0, opacity: 1 }}
         className="text-2xl font-bold text-center"
       >
-        CursorRules Generator 
+        CursorRules Generator
       </motion.h1>
 
       <motion.p
@@ -793,7 +793,7 @@ ${data.additionalRules ? getSelectedAdditionalRules(data.additionalRules as stri
         animate={{ opacity: 1 }}
         className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto"
       >
-        Transform your productivity with instruction driven development. 
+        Transform your productivity with instruction driven development.
       </motion.p>
 
       {/* Selected Options Pills */}
